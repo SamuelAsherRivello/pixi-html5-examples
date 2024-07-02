@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { Actions, Interpolations } from 'pixi-actions';
 import { Example } from "../../Library/Example"; 
-import { ExampleConstants } from "./ExampleConstants"; 
+import { ExampleConstants } from "../ExampleConstants"; 
 import { Card } from './Card';
 import { Deck } from './Deck';
 import { Hand } from './Hand';

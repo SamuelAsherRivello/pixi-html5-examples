@@ -2,9 +2,10 @@ import '../css/styles.css';
 import * as PIXI from 'pixi.js';
 import { CardsExample } from "./examples/CardExample/CardsExample";
 import { SpriteButton } from './Library/SpriteButton';
-import { TextExample } from './examples/TextExample';
-import { ParticlesExample } from './examples/ParticlesExample';
+import { TextExample } from './examples/TextExample/TextExample';
+import { ParticlesExample } from './examples/ParticlesExample/ParticlesExample';
 import { Actions } from 'pixi-actions';
+import { ExampleConstants } from './examples/ExampleConstants';
 
 /////////////////////////////
 // Create the Pixi JS App
@@ -20,6 +21,8 @@ async function initializeApp() {
         canvas: document.getElementById('pixi-application-canvas') as HTMLCanvasElement,
     });
 
+    console.log('PIXI.Application.init()');
+
     /////////////////////////////
     // Setup for 
     // Pixi JS Dev Console
@@ -32,15 +35,15 @@ async function initializeApp() {
     /////////////////////////////
     let fpsUpdateCounter = 0;
     const fpsUpdateInterval = 50; 
-    const fpsText = new PIXI.Text({
-      text: 'FPS: 0',
+    const titleText = new PIXI.Text({
+      text: 'Title\nFPS: 0',
       style: new PIXI.TextStyle({
           fontSize: 18,
           fill: '#ffffff'
       })
     });
-    fpsText.position.set(70, 10);
-    app.stage.addChild(fpsText);
+    titleText.position.set(25, 10);
+    app.stage.addChild(titleText);
 
     
     /////////////////////////////
@@ -104,7 +107,7 @@ async function initializeApp() {
         });
 
         button.view.x = 120; 
-        button.view.y = 80 + index * 80;  
+        button.view.y = 100 + index * 80;  
         app.stage.addChild(button.view);
 
         return button;
@@ -122,17 +125,17 @@ async function initializeApp() {
         fpsUpdateCounter++;
         if (fpsUpdateCounter >= fpsUpdateInterval) {
             fpsUpdateCounter = 0;
-            fpsText.text = `FPS: ${Math.round(ticker.FPS*10)/10}`;
+            titleText.text = `${ExampleConstants.ProjectTitle}\nFPS: ${Math.round(ticker.FPS*10)/10}`;
         }
     });
 
     // Initial setup
-    switchExample(0);
+    switchExample(1);
 }
 
 // Call the async initialization function
 initializeApp().then(() => {
-    console.log('App initialized successfully');
+    //
 }).catch((error) => {
     console.error('Failed to initialize app:', error);
 });
