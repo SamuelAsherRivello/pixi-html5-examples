@@ -9,7 +9,7 @@ import * as UI from '@pixi/ui';
 /////////////////////////////
 export class SpriteButton extends UI.Button {
 
-    // Private member consts
+    // Consts
     private static readonly AssetButtonDefault = 'assets/images/ui/buttonDefault.png';
     private static readonly AssetButtonHover = 'assets/images/ui/buttonHover.png';
     private static readonly AssetButtonPressed = 'assets/images/ui/buttonPressed.png';

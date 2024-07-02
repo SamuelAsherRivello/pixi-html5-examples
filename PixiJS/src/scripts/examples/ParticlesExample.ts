@@ -1,11 +1,10 @@
-
-import { Example } from "../library/Example"; 
+import * as PIXI from 'pixi.js';
+import { Example } from "../Library/Example"; 
 
 export class ParticlesExample extends Example  {
     
-    constructor()
-    {
-        super();
+    constructor(options = {}, app : PIXI.Application) {
+        super(options, app);
     }
 }
    
