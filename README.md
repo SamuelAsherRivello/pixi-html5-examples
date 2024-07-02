@@ -23,9 +23,18 @@ This repo forked from the fantastic [pixijs-project-template](https://github.com
 
 # Getting Started
 
+### The Examples
+
+| 1. Cards       | 2. Text       | 3. Particles       |
+|---------------|---------------|---------------|
+| <img width="200" src="./PixiJS/documentation/Screenshot02.png"> | <img width="200" src="./PixiJS/documentation/Screenshot03.png"> | <img width="200" src="./PixiJS/documentation/Screenshot04.png"> |
+
 ### Play The Examples
 
-1. Visit here XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+1. Open [pixijs-html5-examples](https://samuelasherrivello.itch.io/pixijs-html5-examples)
+1. Click `Run game` button (center)
+1. Click `Fullscreen` button (lower-right)
+1. Click `Escape` key to quit
 1. Enjoy !
 
 

@@ -12,15 +12,19 @@ export class SuperText extends PIXI.Text {
     //Helpful: https://stackoverflow.com/questions/51376589/typescript-what-type-is-setinterval
     private timer: number | ReturnType<typeof setInterval>;
 
-    private messages: { text: string}[];
+    private messages: string[];
+    private emojis: string[];
     private interval: number;
     private currentIndex: number;
+    private fontSizes : number[];
 
-
-
-    constructor(messages: { text: string}[], interval: number, style: PIXI.TextStyle) {
+    constructor(messages: string[], emojis: string[], fontSizes : number[], interval: number, style: PIXI.TextStyle) {
         super({text :"", style : style});
+
         this.messages = messages;
+        this.emojis = emojis;
+        this.fontSizes = fontSizes;
+
         this.interval = interval;
         this.currentIndex = 0;
         this.timer = 0;
@@ -28,8 +32,25 @@ export class SuperText extends PIXI.Text {
     }
 
     private updateText() {
-        const message = this.messages[Math.floor(Math.random() * this.messages.length)];
-        this.text = message.text;
+
+        this.style.fontSize = this.getRandomValueFromArray(this.fontSizes);
+        const message = this.getRandomValueFromArray(this.messages);
+        const emoji = this.getRandomValueFromArray(this.emojis);
+
+        //50/50 chance per ordering
+        if (this.getRandomValueFromArray([true,false]))
+        {
+            this.text = message + emoji;
+        }
+        else
+        {
+            this.text = emoji + message;
+        }
+       
+    }
+
+    private getRandomValueFromArray<T>(array: T[]): T {
+        return array[Math.floor(Math.random() * array.length)];
     }
 
     public start() {

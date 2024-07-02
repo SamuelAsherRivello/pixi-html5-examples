@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { Example } from "../../Library/Example"; 
+import { Example } from "../../library/Example"; 
 import { SuperText } from "./SuperText"; 
 
 /////////////////////////////
@@ -11,25 +11,49 @@ export class TextExample extends Example {
 
     private superText: SuperText;
 
-    constructor(options = {}, app: PIXI.Application) {
-        super(options, app);
+    constructor(title : string, app: PIXI.Application) {
+        super(title, app);
 
-        const messages = [
-            { text: "Welcome! 🌞" },
-            { text: "You lose! 💀"},
-            { text: "You win! 🎉" }
+        const messages : string[] = [
+            "Welcome!",
+            "You lose!",
+            "You win!",
+            "Good bye!",
+            "You tie!",
+            "Game over!"
         ];
 
-        const style = new PIXI.TextStyle({ fontFamily: 'Arial', fontSize: 36, fill: '#ffffff' });
-        this.superText = new SuperText(messages, 2, style);
+        const emojis : string[] = [
+            "🌞",
+            "💀",
+            "🎉"
+        ];
+
+        const fontSizes : number[] = [
+            30,
+            60,
+            90
+        ];
+
+        const style = new PIXI.TextStyle({ fontFamily: 'Arial', fill: '#ffffff' });
+        this.superText = new SuperText(messages, emojis, fontSizes, 2, style);
+        this.superText.anchor.set(0.5); // Center the text anchor point
     }
 
     public override onAddedToStage() {
         super.onAddedToStage();
-        this.superText.position.set(this.app.renderer.width / 2, this.app.renderer.height / 2);
-        this.superText.anchor.set(0.5); // Center the text anchor point
         this.addChild(this.superText);
         this.superText.start();
+
+        // Mimic resize for initial layout
+        this.onResizedStage();
+    }
+
+    public onResizedStage() {
+        super.onResizedStage ();
+        this.superText.position.set(
+            this.app.screen.height * 0.2, 
+            -this.app.screen.height * 0.2);
     }
 
     public override onRemovedFromStage() {

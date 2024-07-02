@@ -9,7 +9,7 @@ import * as UI from '@pixi/ui';
 /////////////////////////////
 export class SpriteButton extends UI.Button {
 
-    // Consts
+    // Constants
     private static readonly AssetButtonDefault = 'assets/images/ui/buttonDefault.png';
     private static readonly AssetButtonHover = 'assets/images/ui/buttonHover.png';
     private static readonly AssetButtonPressed = 'assets/images/ui/buttonPressed.png';
@@ -70,7 +70,9 @@ export class SpriteButton extends UI.Button {
             this.enabled = !props.disabled;
             this.action = props.action;
 
-            //TODO: (Low Priority) This shows deprecated. 
+            //TODO: (Low Priority) This shows deprecated: 
+            //  PixiJS Deprecation Warning: addChild: Only Containers 
+            //  will be allowed to add children in v8.0.0Deprecated since v8.0.0
             this.buttonView.addChild(this.textView);
 
             /////////////////////////////

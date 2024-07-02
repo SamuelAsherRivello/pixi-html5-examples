@@ -3,10 +3,7 @@
 /////////////////////////////
 export class ExampleConstants
 {
-    //TODO: Be sure to set production values
-
-    // Consts
+    // Constants
     public static readonly ProjectTitle = "PixiJS Html5 Examples";
-    public static readonly TimeScale = 20; // use '1' in production
-
+    public static readonly TimeScale = 1; // use '1' in production
 }

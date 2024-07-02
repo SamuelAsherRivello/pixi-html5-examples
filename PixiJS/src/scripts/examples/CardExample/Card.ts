@@ -10,7 +10,7 @@ import * as PIXI from 'pixi.js';
 /////////////////////////////
 export class Card extends PIXI.Sprite {
 
-    // Consts
+    // Constants
     private static readonly AssetCardBack = 'assets/images/cards/back01.png';
 
     constructor() {
@@ -18,6 +18,7 @@ export class Card extends PIXI.Sprite {
         //console.log(`${this.constructor.name}.constructor()`);
 
         this.anchor.set(0.5);
+     
         this.x = window.innerWidth / 2;
         this.y = window.innerHeight / 2;
         this.loadTexture();
@@ -25,11 +26,12 @@ export class Card extends PIXI.Sprite {
 
     private async loadTexture() {
 
-        //TODO: OPTIMIZATION - If this is NOT cached automatically, 
+        //POSSIBLE OPTIMIZATION - If this is NOT cached automatically, 
         //Then load it in the deck and pass the texture to the card
         await PIXI.Assets.load(Card.AssetCardBack);
-
+     
         //
+        this.scale.set(0.20);
         this.texture = PIXI.Texture.from(Card.AssetCardBack);
     }
 }

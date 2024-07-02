@@ -1,12 +1,12 @@
 import '../css/styles.css'; 
 import * as PIXI from 'pixi.js';
-import { CardsExample } from "./examples/CardExample/CardsExample";
-import { SpriteButton } from './Library/SpriteButton';
-import { TextExample } from './examples/TextExample/TextExample';
-import { ParticlesExample } from './examples/ParticlesExample/ParticlesExample';
+import { Example } from "./library/Example";
+import { SpriteButton } from './library/SpriteButton';
+import { CardsExample } from "./examples/cardExample/CardsExample";
+import { TextExample } from './examples/textexample/TextExample';
+import { ParticlesExample } from './examples/particleExample/ParticlesExample';
 import { Actions } from 'pixi-actions';
 import { ExampleConstants } from './examples/ExampleConstants';
-
 /////////////////////////////
 // Create the Pixi JS App
 /////////////////////////////
@@ -14,10 +14,12 @@ const app = new PIXI.Application();
 
 async function initializeApp() {
     await app.init({
-        width: 1920,
-        height: 1080,
-        backgroundColor: 0x1099bb,
+        width: window.innerWidth,
+        height: window.innerHeight,
+        antialias: false,
         resizeTo: window,
+        backgroundColor: 0x1099bb,
+        resolution: window.devicePixelRatio || 1,
         canvas: document.getElementById('pixi-application-canvas') as HTMLCanvasElement,
     });
 
@@ -51,9 +53,9 @@ async function initializeApp() {
     // Examples to show
     /////////////////////////////
     const examples = [
-        new CardsExample({}, app),
-        new TextExample({}, app),
-        new ParticlesExample({}, app),
+        new CardsExample("Cards Example", app),
+        new TextExample("Text Example", app),
+        new ParticlesExample("Particle Example", app),
     ];
 
     let currentExampleIndex = -1;
@@ -94,9 +96,9 @@ async function initializeApp() {
     /////////////////////////////
     // Setup Each Button
     /////////////////////////////
-    const buttons = examples.map((cardsExample, index) => {
+    const buttons = examples.map((example : Example, index) => {
         const button = new SpriteButton({
-            text: `${index + 1}. ${cardsExample.constructor.name}`,
+            text: `${index + 1}. ${example.title}`,
             textColor: '#505050',
             disabled: false,
             action: (event: string) => {
@@ -122,20 +124,47 @@ async function initializeApp() {
     app.ticker.add((ticker) => {
         Actions.tick(ticker.deltaTime / 60);
 
+        //let body = document.body;
+        //let sizingInfo = `Window: ${window.screen.width}x${window.screen.height}\n` +
+        //                  `App: ${Math.round(app.renderer.width)}x${Math.round(app.renderer.height)}\n` +
+        //                  `Body: ${Math.round(body.clientWidth)}x${Math.round(body.clientHeight)}\n';
+
         fpsUpdateCounter++;
         if (fpsUpdateCounter >= fpsUpdateInterval) {
             fpsUpdateCounter = 0;
-            titleText.text = `${ExampleConstants.ProjectTitle}\nFPS: ${Math.round(ticker.FPS*10)/10}`;
+            titleText.text = `${ExampleConstants.ProjectTitle}\n` +
+            `FPS: ${Math.round(ticker.FPS*10)/10}`;
         }
     });
 
+
+    /////////////////////////////
+    // Setup Responsiveness
+    //
+    /////////////////////////////
+
+    //listen to window change
+    window.addEventListener('resize', onResizedStage);
+
+    //listen to body change
+    const resizeObserver = new ResizeObserver(onResizedStage);
+    resizeObserver.observe(document.body);
+
+    //propogate to examples
+    function onResizedStage() {
+        examples.forEach(example => {
+            example.onResizedStage();
+        });
+    }
+
     // Initial setup
-    switchExample(1);
+    onResizedStage(); 
+    switchExample(0);
 }
 
 // Call the async initialization function
 initializeApp().then(() => {
     //
 }).catch((error) => {
-    console.error('Failed to initialize app:', error);
+    console.error('Failed PIXI.Application.init(), error= ' + error);
 });
