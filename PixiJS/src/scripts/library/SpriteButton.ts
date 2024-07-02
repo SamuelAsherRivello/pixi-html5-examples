@@ -58,7 +58,7 @@ export class SpriteButton extends UI.Button {
             this.textView = new PIXI.Text({
                 text: props.text,
                 style: new PIXI.TextStyle({
-                    fontSize: 20,
+                    fontSize: 18,
                     fontFamily: 'Arial',
                     align: 'center',
                     fill: props.textColor

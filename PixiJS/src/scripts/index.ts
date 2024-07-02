@@ -11,7 +11,6 @@ import { Actions } from 'pixi-actions';
 /////////////////////////////
 const app = new PIXI.Application();
 
-
 async function initializeApp() {
     await app.init({
         width: 1920,
@@ -27,6 +26,23 @@ async function initializeApp() {
     /////////////////////////////
     (globalThis as any).__PIXI_APP__ = app; // eslint-disable-line
 
+    /////////////////////////////
+    // Setup for
+    // FPS Display
+    /////////////////////////////
+    let fpsUpdateCounter = 0;
+    const fpsUpdateInterval = 50; 
+    const fpsText = new PIXI.Text({
+      text: 'FPS: 0',
+      style: new PIXI.TextStyle({
+          fontSize: 18,
+          fill: '#ffffff'
+      })
+    });
+    fpsText.position.set(70, 10);
+    app.stage.addChild(fpsText);
+
+    
     /////////////////////////////
     // Create list of 
     // Examples to show
@@ -75,9 +91,9 @@ async function initializeApp() {
     /////////////////////////////
     // Setup Each Button
     /////////////////////////////
-    const buttons = examples.map((_, index) => {
+    const buttons = examples.map((cardsExample, index) => {
         const button = new SpriteButton({
-            text: `Example ${index + 1}`,
+            text: `${index + 1}. ${cardsExample.constructor.name}`,
             textColor: '#505050',
             disabled: false,
             action: (event: string) => {
@@ -88,8 +104,7 @@ async function initializeApp() {
         });
 
         button.view.x = 120; 
-        button.view.y = 50 + index * 80;  
-
+        button.view.y = 80 + index * 80;  
         app.stage.addChild(button.view);
 
         return button;
@@ -101,8 +116,14 @@ async function initializeApp() {
     // Source: https://github.com/srpatel/pixi-actions
     //
     /////////////////////////////
-    app.ticker.add((ticker: PIXI.Ticker) => {
-      Actions.tick(ticker.deltaTime/60);
+    app.ticker.add((ticker) => {
+        Actions.tick(ticker.deltaTime / 60);
+
+        fpsUpdateCounter++;
+        if (fpsUpdateCounter >= fpsUpdateInterval) {
+            fpsUpdateCounter = 0;
+            fpsText.text = `FPS: ${Math.round(ticker.FPS*10)/10}`;
+        }
     });
 
     // Initial setup
@@ -115,4 +136,3 @@ initializeApp().then(() => {
 }).catch((error) => {
     console.error('Failed to initialize app:', error);
 });
-
