@@ -23,11 +23,7 @@ This repo forked from the fantastic [pixijs-project-template](https://github.com
 
 # Getting Started
 
-### The Examples
 
-| 1. Cards       | 2. Text       | 3. Particles       |
-|---------------|---------------|---------------|
-| <img width="200" src="./PixiJS/documentation/Screenshot02.png"> | <img width="200" src="./PixiJS/documentation/Screenshot03.png"> | <img width="200" src="./PixiJS/documentation/Screenshot04.png"> |
 
 ### Play The Examples
 
@@ -55,9 +51,35 @@ This repo forked from the fantastic [pixijs-project-template](https://github.com
 <BR>
 
 
-
-
 # Project Overview
+
+### Screenshots
+
+| 1. Cards       | 2. Text       | 3. Particles       |
+|---------------|---------------|---------------|
+| <img width="200" src="./PixiJS/documentation/Screenshot02.png"> | <img width="200" src="./PixiJS/documentation/Screenshot03.png"> | <img width="200" src="./PixiJS/documentation/Screenshot04.png"> |
+
+
+### Features
+
+| Feature | Complete | Comment |
+|---------|----------|---------|
+|   Pixi JS      |    ✅      |   Very fun! v8.x     |
+|   TypeScript      |    ✅      |   I'm a noobie. It's way better than vanilla JS!      |
+|   FPS Display      |    ✅      |   With textfield      |
+|   Aesthetics      |      ✅    |    Looks good     |
+|   Performance      |      ✅    |    Works well (~250 FPS)     |
+|   Architecture      |      ✅    |    Consistent but informal. See my [C# Architecture](https://bit.ly/mvc-architecture-for-unity-on-udemy)    |
+|   Project Structure      |      ✅    |    Consistent. Format WIP    |
+|   Readability      |      ✅    |    Has main entry point, and clear separation of examples   |
+|   Errors-Free      |       ✅   |  Nice!      |
+|   Warning-Free      |       ⚠️   |  Has one deprecation warning. Fix is TBD. #TimeConstraint       |
+|   Responsive Design      |      ⚠️    |    Examples do relayout() upon app resize. WIP. Good locally, so-so on itch.io. #TimeConstraint    |
+|   Coding Standards      |      ⚠️    |    My JS standards are WIP. See my [C# Standards](https://www.samuelasherrivello.com/best-practices). #TimeConstraint |
+|   Documentation      |      ⚠️    |    Limited. #TimeConstraint    |
+
+
+### Structure
 
 
 **Documentation**

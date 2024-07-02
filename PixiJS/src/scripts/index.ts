@@ -3,10 +3,11 @@ import * as PIXI from 'pixi.js';
 import { Example } from "./library/Example";
 import { SpriteButton } from './library/SpriteButton';
 import { CardsExample } from "./examples/cardExample/CardsExample";
-import { TextExample } from './examples/textexample/TextExample';
+import { TextExample } from './examples/textExample/TextExample';
 import { ParticlesExample } from './examples/particleExample/ParticlesExample';
 import { Actions } from 'pixi-actions';
 import { ExampleConstants } from './examples/ExampleConstants';
+
 /////////////////////////////
 // Create the Pixi JS App
 /////////////////////////////
@@ -160,6 +161,8 @@ async function initializeApp() {
     // Initial setup
     onResizedStage(); 
     switchExample(0);
+
+
 }
 
 // Call the async initialization function
