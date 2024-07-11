@@ -1,6 +1,7 @@
-import * as PIXI from 'pixi.js';
-import { Example } from "../../library/Example"; 
-import { SuperEmitter } from './SuperEmitter'; 
+import { Example } from '@src/scripts/library/project/Example';
+import { SuperApp } from '@src/scripts/library/core/SuperApp';
+import { SuperEmitter } from './SuperEmitter';
+import { ExampleConstants } from '@src/scripts/ExampleConstants';
 
 /////////////////////////////
 // Example: Show a custom
@@ -11,37 +12,54 @@ import { SuperEmitter } from './SuperEmitter';
 // in 8.x. So I'm doing it custom.
 //
 /////////////////////////////
-export class ParticlesExample extends Example  {
-    
-    private superEmitter : SuperEmitter;
+export class ParticlesExample extends Example {
 
-    constructor(title : string, app : PIXI.Application) {
-        super(title, app);
+    private superEmitter: SuperEmitter;
+
+    constructor(title: string, superApp: SuperApp) {
+        super(title, superApp);
 
         this.superEmitter = new SuperEmitter();
     }
 
     public override onAddedToStage() {
 
+        // Call Super
         super.onAddedToStage();
+
+        // Do Local
+        //TODO: Replace these 2 lines with this._superApp.addToStage (child, parent)
         this.addChild(this.superEmitter);
         this.superEmitter.onAddedToStage();
 
+        // Resize
+        this._superApp.resize();
+
     }
 
-    public onResizedStage() {
-        super.onResizedStage ();
-        this.superEmitter.x = this.app.renderer.width/2;
-        this.superEmitter.y = this.app.renderer.height/2;
-        this.superEmitter.onResizedStage(this.app);
+    public override onResize(superApp: SuperApp) {
+
+        // Call Super
+        super.onResize(superApp);
+
+        // Do Local
+        if (!this.isAddedToStage || this.superEmitter == null) {
+            return;
+        }
+
+        this.superEmitter.x = Math.max(ExampleConstants.ButtonAreaWidth, this._superApp.app.renderer.width / 2);
+        this.superEmitter.y = this._superApp.app.renderer.height / 2;
+        this.superEmitter.onResizedStage(this._superApp.app);
     }
+
 
     public override onRemovedFromStage() {
 
+        // Call Super
         super.onRemovedFromStage();
-        this.superEmitter.onRemovedFromStage();
-        this.removeChild(this.superEmitter);
+
+        // Do Local
         this.removeChildren(); //clean anything else
     }
 }
-   
+

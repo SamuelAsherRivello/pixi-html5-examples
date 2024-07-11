@@ -1,11 +1,13 @@
 {
   "dependencies": {
     "@pixi/ui": "^2.1.2",
+    "@types/stats": "^0.16.30",
     "copy-webpack-plugin": "^12.0.2",
     "html-webpack-plugin": "^5.6.0",
     "pixi-actions": "^1.1.11",
     "pixi-filters": "^6.0.4",
     "pixi.js": "^8.2.1",
+    "stats.js": "^0.17.0",
     "terser-webpack-plugin": "^5.3.10",
     "ts-loader": "^9.5.1",
     "typescript": "^5.5.2",
@@ -15,10 +17,38 @@
   },
   "scripts": {
     "build": "webpack --mode production",
-    "start": "webpack serve --mode development"
+    "start": "webpack serve --mode development",
+    "start-with-test": "concurrently --kill-others \"npm run watch:test\" \"webpack serve --mode development\"",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "watch:test": "onchange \"src/**/*\" \"tests/**/*\" -- npm run test",
+    "lint": "eslint --config eslint.config.mjs",
+    "lint:fix": "eslint --config eslint.config.mjs --fix",
+    "analyze": "webpack --mode production --env analyze"
   },
   "devDependencies": {
+    "@eslint/js": "^8.2.0",
+    "@types/jest": "^29.5.12",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
+    "concurrently": "^7.2.1",
     "css-loader": "^7.1.2",
-    "style-loader": "^4.0.0"
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^27.2.0",
+    "eslint-plugin-jsdoc": "^39.0.6",
+    "eslint-plugin-prettier": "^4.2.1",
+    "globals": "^15.8.0",
+    "jest": "^29.7.0",
+    "mini-css-extract-plugin": "^2.9.0",
+    "onchange": "^7.0.2",
+    "prettier": "^2.8.8",
+    "source-map-loader": "^5.0.0",
+    "style-loader": "^4.0.0",
+    "ts-jest": "^29.2.2",
+    "typescript-eslint": "^7.16.0",
+    "webpack-bundle-analyzer": "^4.10.2"
   }
 }

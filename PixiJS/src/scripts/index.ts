@@ -1,173 +1,147 @@
-import '../css/styles.css'; 
 import * as PIXI from 'pixi.js';
-import { Example } from "./library/Example";
-import { SpriteButton } from './library/SpriteButton';
-import { CardsExample } from "./examples/cardExample/CardsExample";
-import { TextExample } from './examples/textExample/TextExample';
-import { ParticlesExample } from './examples/particleExample/ParticlesExample';
 import { Actions } from 'pixi-actions';
-import { ExampleConstants } from './examples/ExampleConstants';
+import { SuperApp } from '@src/scripts/library/core/SuperApp';
+import { Example } from '@src/scripts/library/project/Example';
+import { CardsExample } from '@src/scripts/examples/cardExample/CardsExample';
+import { TextExample } from '@src/scripts/examples/textExample/TextExample';
+import { ParticlesExample } from '@src/scripts/examples/particleExample/ParticlesExample';
+import { SpriteButton } from '@src/scripts/library/project/SpriteButton';
+import Stats from 'stats.js';
+import { InstructionsText } from './library/core/InstructionsText';
+
 
 /////////////////////////////
-// Create the Pixi JS App
+// PIXI Configuration
 /////////////////////////////
-const app = new PIXI.Application();
+PIXI.AbstractRenderer.defaultOptions.roundPixels = true; // Crisp pixels
+PIXI.AbstractRenderer.defaultOptions.resolution = window.devicePixelRatio || 1; // Crisp pixels
 
-async function initializeApp() {
-    await app.init({
-        width: window.innerWidth,
-        height: window.innerHeight,
-        antialias: false,
-        resizeTo: window,
-        backgroundColor: 0x1099bb,
-        resolution: window.devicePixelRatio || 1,
-        canvas: document.getElementById('pixi-application-canvas') as HTMLCanvasElement,
-    });
 
-    console.log('PIXI.Application.init()');
+/////////////////////////////
+// Setup Stats
+/////////////////////////////
+const stats = new Stats();
+stats.showPanel(0);
+stats.dom.className = 'stats-panel';
+document.body.appendChild(stats.dom);
 
-    /////////////////////////////
-    // Setup for 
-    // Pixi JS Dev Console
-    /////////////////////////////
-    (globalThis as any).__PIXI_APP__ = app; // eslint-disable-line
 
-    /////////////////////////////
-    // Setup for
-    // FPS Display
-    /////////////////////////////
-    let fpsUpdateCounter = 0;
-    const fpsUpdateInterval = 50; 
-    const titleText = new PIXI.Text({
-      text: 'Title\nFPS: 0',
-      style: new PIXI.TextStyle({
-          fontSize: 18,
-          fill: '#ffffff'
-      })
-    });
-    titleText.position.set(25, 10);
-    app.stage.addChild(titleText);
+/////////////////////////////
+// Create App
+/////////////////////////////
+const superAppConst = new SuperApp(1920, 1080, 'pixi-application-canvas');
 
-    
-    /////////////////////////////
-    // Create list of 
-    // Examples to show
-    /////////////////////////////
-    const examples = [
-        new CardsExample("Cards Example", app),
-        new TextExample("Text Example", app),
-        new ParticlesExample("Particle Example", app),
-    ];
 
-    let currentExampleIndex = -1;
+/////////////////////////////
+// Setup Pixi JS DevTools
+// https://bit.ly/pixijs-devtools
+/////////////////////////////
+(globalThis as any).__PIXI_APP__ = superAppConst.app;
 
-    function switchExample(index: number) {
-        if (index === currentExampleIndex) return;
 
-        // Remove current example if exists
-        if (currentExampleIndex !== -1) {
-            app.stage.removeChild(examples[currentExampleIndex]);
-            examples[currentExampleIndex].onRemovedFromStage();
+/////////////////////////////
+// Handle App Initialize
+/////////////////////////////
+function onInitializeCompleted(superApp: SuperApp) {
+
+
+  /////////////////////////////
+  // Create Instruction Text
+  /////////////////////////////
+  const instructionsText = new InstructionsText('Click Menu Buttons');
+  instructionsText.x = 2;
+  instructionsText.y = stats.dom.clientHeight - 10;
+  superApp.addToStage(instructionsText);
+
+
+  /////////////////////////////
+  // Update Systems Every Frame
+  /////////////////////////////
+  superApp.app.ticker.add((ticker) => {
+
+    stats.begin();
+    Actions.tick(ticker.deltaTime / 60);
+    stats.end();
+  });
+
+
+  /////////////////////////////
+  // Setup Each Example
+  /////////////////////////////
+  const examples: Example[] = [
+    new CardsExample("Cards Example", superApp),
+    new TextExample("Text Example", superApp),
+    new ParticlesExample("Particle Example", superApp),
+  ];
+
+  let currentExampleIndex = -1;
+
+  function switchExample(index: number) {
+    if (index === currentExampleIndex) return;
+
+    // Remove current example if exists
+    if (currentExampleIndex !== -1) {
+      superApp.removeFromStage(examples[currentExampleIndex]);
+    }
+
+    currentExampleIndex = index;
+
+    // Add new example
+    superApp.addToStage(examples[currentExampleIndex]);
+    updateButtons();
+  }
+
+
+  /////////////////////////////
+  // Setup Each Button
+  /////////////////////////////
+  const buttons = examples.map((example: Example, index) => {
+    const button = new SpriteButton({
+      text: `${index + 1}. ${example.title}`,
+      textColor: '#505050',
+      disabled: false,
+      action: (event: string) => {
+        if (event === SpriteButton.ActionOnPress) {
+          switchExample(index);
         }
-
-        currentExampleIndex = index;
-
-        // Add new example
-        app.stage.addChild(examples[currentExampleIndex]);
-        examples[currentExampleIndex].onAddedToStage();
-
-        updateButtons();
-    }
-
-    function updateButtons() {
-        buttons.forEach((button, index) => {
-            button.view.interactive = index !== currentExampleIndex;
-            button.view.alpha = index === currentExampleIndex ? 0.5 : 1;
-        });
-    }
-
-    /////////////////////////////
-    // Setup Each Example
-    /////////////////////////////
-    examples.forEach((example, index) => {
-        app.stage.addChild(example);
-        example.visible = index === currentExampleIndex; // Show only the current example
+      }
     });
 
-    /////////////////////////////
-    // Setup Each Button
-    /////////////////////////////
-    const buttons = examples.map((example : Example, index) => {
-        const button = new SpriteButton({
-            text: `${index + 1}. ${example.title}`,
-            textColor: '#505050',
-            disabled: false,
-            action: (event: string) => {
-                if (event === SpriteButton.ActionOnPress) {
-                    switchExample(index);
-                }
-            }
-        });
+    button.view.x = 120;
+    button.view.y = 120 + index * 80;
+    superApp.addToStage(button.view);
 
-        button.view.x = 120; 
-        button.view.y = 100 + index * 80;  
-        app.stage.addChild(button.view);
+    return button;
+  });
 
-        return button;
+
+  function updateButtons() {
+    buttons.forEach((button, index) => {
+      button.view.interactive = index !== currentExampleIndex;
+      button.view.alpha = index === currentExampleIndex ? 0.5 : 1;
     });
+  }
 
-    /////////////////////////////
-    // Setup Tweening Library
-    //
-    // Source: https://github.com/srpatel/pixi-actions
-    //
-    /////////////////////////////
-    app.ticker.add((ticker) => {
-        Actions.tick(ticker.deltaTime / 60);
-
-        //let body = document.body;
-        //let sizingInfo = `Window: ${window.screen.width}x${window.screen.height}\n` +
-        //                  `App: ${Math.round(app.renderer.width)}x${Math.round(app.renderer.height)}\n` +
-        //                  `Body: ${Math.round(body.clientWidth)}x${Math.round(body.clientHeight)}\n';
-
-        fpsUpdateCounter++;
-        if (fpsUpdateCounter >= fpsUpdateInterval) {
-            fpsUpdateCounter = 0;
-            titleText.text = `${ExampleConstants.ProjectTitle}\n` +
-            `FPS: ${Math.round(ticker.FPS*10)/10}`;
-        }
-    });
-
-
-    /////////////////////////////
-    // Setup Responsiveness
-    //
-    /////////////////////////////
-
-    //listen to window change
-    window.addEventListener('resize', onResizedStage);
-
-    //listen to body change
-    const resizeObserver = new ResizeObserver(onResizedStage);
-    resizeObserver.observe(document.body);
-
-    //propogate to examples
-    function onResizedStage() {
-        examples.forEach(example => {
-            example.onResizedStage();
-        });
-    }
-
-    // Initial setup
-    onResizedStage(); 
-    switchExample(0);
-
+  // Initial setup
+  switchExample(0);
 
 }
 
-// Call the async initialization function
-initializeApp().then(() => {
-    //
-}).catch((error) => {
-    console.error('Failed PIXI.Application.init(), error= ' + error);
-});
+
+/////////////////////////////
+// Handle App Error
+/////////////////////////////
+function onInitializeError(error: Error) {
+  console.error(`PIXI.Application.init() failed. error = ${error}`);
+}
+
+
+/////////////////////////////
+// Initialize App
+/////////////////////////////
+superAppConst.addListener(SuperApp.EVENT_INITIALIZE_COMPLETE, onInitializeCompleted);
+superAppConst.addListener(SuperApp.EVENT_INITIALIZE_ERROR, onInitializeError);
+
+(async () => {
+  await superAppConst.init();
+})();

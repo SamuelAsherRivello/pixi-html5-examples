@@ -1,8 +1,8 @@
 # PixiJS Html5 Examples
 
-This repo includes PixiJS Html5 examples. Enjoy!
+This repo includes Html5 examples using [PixiJS](https://pixijs.com/) and [TypeScript](https://www.typescriptlang.org/).
 
-This repo forked from the fantastic [pixijs-project-template](https://github.com/SamuelAsherRivello/pixijs-project-template), created by Samuel Asher Rivello, which is a recommended starting point for new projects using [PixiJS](https://pixijs.com/) and [TypeScript](https://www.typescriptlang.org/).
+It is based on Samuel Asher Rivello's [pixi-project-template](https://github.com/SamuelAsherRivello/pixi-project-template) which is a recommended starting point for new projects.
 
 <figure>
     <img alt="screenshot"
@@ -27,7 +27,7 @@ This repo forked from the fantastic [pixijs-project-template](https://github.com
 
 ### Play The Examples
 
-1. Open [pixijs-html5-examples](https://samuelasherrivello.itch.io/pixijs-html5-examples)
+1. Open [pixi-html5-examples](https://samuelasherrivello.itch.io/pixi-html5-examples)
 1. Click `Run game` button (center)
 1. Click `Fullscreen` button (lower-right)
 1. Click `Escape` key to quit

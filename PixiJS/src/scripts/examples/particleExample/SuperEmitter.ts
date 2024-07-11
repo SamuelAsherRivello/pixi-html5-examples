@@ -4,7 +4,7 @@ type ParticleExtension = {
   deltaX: number;
   deltaY: number;
   deltaAlpha: number;
-  deltaScale : number;
+  deltaScale: number;
   deltaRotation: number;
   timeLifeFramesRemaining: number;
   startTint: number;
@@ -64,7 +64,9 @@ export class SuperEmitter extends PIXI.Container {
   public onResizedStage(app: PIXI.Application) {
     this.screenWidth = app.screen.width;
     this.screenHeight = app.screen.height;
-    this.particles.forEach(this.resetParticle, this);
+
+    // OPTIONAL: Comment-in to clear screen on resize
+    // this.particles.forEach(this.resetParticle, this);
   }
 
   public onRemovedFromStage() {
@@ -90,8 +92,8 @@ export class SuperEmitter extends PIXI.Container {
     this.particles.forEach((particle) => {
       particle.x += particle.deltaX * this.ticker.deltaTime;
       particle.y += particle.deltaY * this.ticker.deltaTime;
-      particle.scale.x = Math.max (0, particle.scale.x + particle.deltaScale);
-      particle.scale.y = Math.max (0, particle.scale.y + particle.deltaScale);
+      particle.scale.x = Math.max(0, particle.scale.x + particle.deltaScale);
+      particle.scale.y = Math.max(0, particle.scale.y + particle.deltaScale);
       particle.rotation += particle.deltaRotation * this.ticker.deltaTime;
       particle.timeLifeFramesRemaining -= this.ticker.deltaTime;
       particle.tint = this.interpolateColor(0xFF4500, particle.startTint, 1 - (particle.timeLifeFramesRemaining / SuperEmitter.TimeLifeFramesRemainingMax));
@@ -128,7 +130,7 @@ export class SuperEmitter extends PIXI.Container {
     const g = Math.round(startG + (endG - startG) * factor);
     const b = Math.round(startB + (endB - startB) * factor);
 
-    return ((r << 16) + (g << 8) + b) & 0xFFFFFF; 
+    return ((r << 16) + (g << 8) + b) & 0xFFFFFF;
   }
 
   private resetParticle(particle: Particle) {

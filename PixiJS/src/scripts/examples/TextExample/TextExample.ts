@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
-import { Example } from "../../library/Example"; 
-import { SuperText } from "./SuperText"; 
+import { SuperText } from "./SuperText";
+import { Example } from '@src/scripts/library/project/Example';
+import { SuperApp } from '@src/scripts/library/core/SuperApp';
 
 /////////////////////////////
 // Example: Show a custom class
@@ -11,10 +12,10 @@ export class TextExample extends Example {
 
     private superText: SuperText;
 
-    constructor(title : string, app: PIXI.Application) {
-        super(title, app);
+    constructor(title: string, superApp: SuperApp) {
+        super(title, superApp);
 
-        const messages : string[] = [
+        const messages: string[] = [
             "Welcome!",
             "You lose!",
             "You win!",
@@ -23,13 +24,13 @@ export class TextExample extends Example {
             "Game over!"
         ];
 
-        const emojis : string[] = [
+        const emojis: string[] = [
             "🌞",
             "💀",
             "🎉"
         ];
 
-        const fontSizes : number[] = [
+        const fontSizes: number[] = [
             30,
             60,
             90
@@ -45,15 +46,21 @@ export class TextExample extends Example {
         this.addChild(this.superText);
         this.superText.start();
 
-        // Mimic resize for initial layout
-        this.onResizedStage();
     }
 
-    public onResizedStage() {
-        super.onResizedStage ();
+    public override onResize(superApp: SuperApp) {
+
+        // Call Super
+        super.onResize(superApp);
+
+        // Do Local
+        if (!this.isAddedToStage) {
+            return;
+        }
+
         this.superText.position.set(
-            this.app.screen.height * 0.2, 
-            -this.app.screen.height * 0.2);
+            this._superApp.app.screen.height * 0.2,
+            -this._superApp.app.screen.height * 0.2);
     }
 
     public override onRemovedFromStage() {

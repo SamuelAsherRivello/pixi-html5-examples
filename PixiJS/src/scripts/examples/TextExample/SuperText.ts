@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { ExampleConstants } from '../ExampleConstants';
+import { ExampleConstants } from '../../ExampleConstants';
 
 /////////////////////////////
 // Example: Show a custom class
@@ -16,10 +16,10 @@ export class SuperText extends PIXI.Text {
     private emojis: string[];
     private interval: number;
     private currentIndex: number;
-    private fontSizes : number[];
+    private fontSizes: number[];
 
-    constructor(messages: string[], emojis: string[], fontSizes : number[], interval: number, style: PIXI.TextStyle) {
-        super({text :"", style : style});
+    constructor(messages: string[], emojis: string[], fontSizes: number[], interval: number, style: PIXI.TextStyle) {
+        super({ text: "", style: style });
 
         this.messages = messages;
         this.emojis = emojis;
@@ -38,15 +38,13 @@ export class SuperText extends PIXI.Text {
         const emoji = this.getRandomValueFromArray(this.emojis);
 
         //50/50 chance per ordering
-        if (this.getRandomValueFromArray([true,false]))
-        {
+        if (this.getRandomValueFromArray([true, false])) {
             this.text = message + emoji;
         }
-        else
-        {
+        else {
             this.text = emoji + message;
         }
-       
+
     }
 
     private getRandomValueFromArray<T>(array: T[]): T {
@@ -56,10 +54,10 @@ export class SuperText extends PIXI.Text {
     public start() {
 
         let timeDelayBetweenCalls = (this.interval * 1000) / ExampleConstants.TimeScale;
-        this.stop(); 
+        this.stop();
         this.timer = setInterval(() => {
             this.updateText();
-        }, timeDelayBetweenCalls );
+        }, timeDelayBetweenCalls);
     }
 
     public stop() {

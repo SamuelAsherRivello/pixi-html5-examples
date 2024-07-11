@@ -1,8 +1,8 @@
-
 /*///////////////////////////
 // Render to full window size
 ///////////////////////////*/
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -11,7 +11,9 @@ html, body {
   box-sizing: border-box;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
@@ -30,4 +32,18 @@ canvas {
 ///////////////////////////*/
 #pixi-application-canvas {
   border: 2px solid black;
+}
+
+/*///////////////////////////
+// Customize Stats Showing FPS
+///////////////////////////*/
+.stats-panel {
+  position: fixed !important;
+  top: 0px !important;
+  left: 0px !important;
+  z-index: 1000 !important;
+  cursor: pointer;
+  width: 100px;
+  height: 60px;
+  overflow: hidden;
 }
