@@ -1,8 +1,21 @@
-module.exports = {
-  preset: 'ts-jest',
+export default {
+  preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'node',
-  moduleNameMapper: {
-    '^@src/(.*)$': '<rootDir>/src/$1'
+  extensionsToTreatAsEsm: ['.ts'],
+  transform: {
+    '^.+\\.ts$': [
+      'ts-jest',
+      {
+        useESM: true,
+      },
+    ],
   },
-  testMatch: ['**/tests/**/*.ts', '**/?(*.)+(spec|test).ts'],
+  moduleNameMapper: {
+    '^@client/(.*)$': '<rootDir>/src/scripts/client/$1',
+    '^@server/(.*)$': '<rootDir>/src/scripts/server/$1',
+    '^@shared/(.*)$': '<rootDir>/src/scripts/shared/$1',
+    '^@tests/(.*)$': '<rootDir>/src/scripts/tests/$1',
+    '^@src/(.*)$': '<rootDir>/src/$1',
+  },
+  testMatch: ['**/src/scripts/tests/**/*.ts', '**/?(*.)+(spec|test).ts'],
 };

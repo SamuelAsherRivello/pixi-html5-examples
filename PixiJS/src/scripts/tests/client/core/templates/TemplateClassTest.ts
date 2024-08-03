@@ -1,27 +1,25 @@
-import { TemplateClass } from "@src/scripts/library/core/templates/TemplateClass";
+import { TemplateClass } from '@client/core/templates/TemplateClass';
 
-
-let templateClass: TemplateClass
+let templateClass: TemplateClass;
 
 beforeAll(() => {
-  //console.log('TemplateClass.beforeAll()');
+  //console.log('TemplateClassTest.beforeAll()');
 });
 
 beforeEach(() => {
-  //console.log('TemplateClass.beforeEach()');
+  //console.log('TemplateClassTest.beforeEach()');
   templateClass = new TemplateClass();
 });
 
 afterEach(() => {
-  //console.log('TemplateClass.afterEach()');
+  //console.log('TemplateClassTest.afterEach()');
 });
 
 afterAll(() => {
-  //console.log('TemplateClass.afterAll()');
+  //console.log('TemplateClassTest.afterAll()');
 });
 
 test('instance is not null when default', () => {
-
   // Arrange
 
   // Act
@@ -32,7 +30,6 @@ test('instance is not null when default', () => {
 });
 
 test('add, result is 3, when 1 & 2', () => {
-
   // Arrange
 
   // Act
@@ -50,37 +47,31 @@ describe('templateClass.add', () => {
     [3, 3, 6],
   ];
 
-  test.each(testCases)(
-    'add(%i, %i) should return %i',
-    (a, b, expected) => {
-      // Arrange
-      // (No specific arrangement needed for this test)
+  test.each(testCases)('add(%i, %i) should return %i', (a, b, expected) => {
+    // Arrange
+    // (No specific arrangement needed for this test)
 
-      // Act
-      const result = templateClass.add(a, b);
+    // Act
+    const result = templateClass.add(a, b);
 
-      // Assert
-      expect(result).toBe(expected);
-    }
-  );
+    // Assert
+    expect(result).toBe(expected);
+  });
 });
 
 test('samplePublicText, result is "", when default', () => {
-
   // Arrange
 
   // Act
   let result = templateClass.samplePublicText;
 
   // Assert
-  expect(result).toBe("");
+  expect(result).toBe('');
 });
 
-
 test('samplePublicText, result is "hello123", when set "hello123" ', () => {
-
   // Arrange
-  let expected = "hello123";
+  let expected = 'hello123';
 
   // Act
   templateClass.samplePublicText = expected;
@@ -89,6 +80,3 @@ test('samplePublicText, result is "hello123", when set "hello123" ', () => {
   // Assert
   expect(result).toBe(expected);
 });
-
-
-

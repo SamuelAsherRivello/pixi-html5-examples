@@ -1,9 +1,9 @@
 import * as PIXI from 'pixi.js';
 import { Actions, Interpolations } from 'pixi-actions';
-import { ExampleConstants } from "../../ExampleConstants";
-import { Example } from '@src/scripts/library/project/Example';
+import { ExampleConstants } from "../ExampleConstants";
+import { SuperApp } from '@client/core/SuperApp';
 import { Card } from './Card';
-import { SuperApp } from '@src/scripts/library/core/SuperApp';
+import { Example } from '../Example';
 
 /////////////////////////////
 // Example: Show 2 hands of 

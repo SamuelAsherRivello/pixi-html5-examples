@@ -1,7 +1,7 @@
+import { SuperApp } from '@client/core/SuperApp';
 import * as PIXI from 'pixi.js';
-import { SuperText } from "./SuperText";
-import { Example } from '@src/scripts/library/project/Example';
-import { SuperApp } from '@src/scripts/library/core/SuperApp';
+import { SuperText } from './SuperText';
+import { Example } from '../Example';
 
 /////////////////////////////
 // Example: Show a custom class

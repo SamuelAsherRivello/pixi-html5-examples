@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { ExampleConstants } from '../../ExampleConstants';
+import { ExampleConstants } from '../ExampleConstants';
 
 /////////////////////////////
 // Example: Show a custom class

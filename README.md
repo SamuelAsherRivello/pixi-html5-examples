@@ -2,7 +2,7 @@
 
 This repo includes Html5 examples using [PixiJS](https://pixijs.com/) and [TypeScript](https://www.typescriptlang.org/).
 
-It is based on Samuel Asher Rivello's [pixi-project-template](https://github.com/SamuelAsherRivello/pixi-project-template) which is a recommended starting point for new projects.
+It is based on Samuel Asher Rivello's [GitHub.com/SamuelAsherRivello/pixi-project-template/](https://github.com/SamuelAsherRivello/pixi-project-template/) which is a recommended starting point for new projects.
 
 <figure>
     <img alt="screenshot"
@@ -27,7 +27,7 @@ It is based on Samuel Asher Rivello's [pixi-project-template](https://github.com
 
 ### Play The Examples
 
-1. Open [pixi-html5-examples](https://samuelasherrivello.itch.io/pixi-html5-examples)
+1. Open [SamuelAsherRivello.itch.io/pixi-html5-examples](https://samuelasherrivello.itch.io/pixi-html5-examples)
 1. Click `Run game` button (center)
 1. Click `Fullscreen` button (lower-right)
 1. Click `Escape` key to quit
@@ -40,14 +40,26 @@ It is based on Samuel Asher Rivello's [pixi-project-template](https://github.com
 1. Install dependencies. Open the `PixiJS` folder in command line...
     * Run `npm install` to download and install dependencies
 1. Build the game. Open the `PixiJS` folder in command line...
-    * Run `npm run build` builds the game
-    * Run `npm start` launches a server to localhost
+    * Run `npm run client-build` builds the game
+    * Run `npm run client-start-watch` launches a server to localhost
 1. Play the game at [localhost:3000](http://localhost:3000)
 1. Open the `PixiJS` folder in [Visual Studio Code](https://code.visualstudio.com/) or your favorite editor 
 1. Do your game development
 1. Optional: When you add/update files within the `PixiJS` you may need to repeat step 3. See [Webpack Beginner's Guide](https://medium.com/javascript-training/beginner-s-guide-to-webpack-b1f1a3638460) for more info
 1. Enjoy !
 
+<BR>
+
+### More Commands
+
+You can run these terminal commands during your workflows.
+
+| Command                      | Description                                    | Builds? | Runs?   | Tests?  | Watches?  |
+|------------------------------|------------------------------------------------|---------|--------|--------|----------|
+| `npm install`                | Required: Download and install dependencies        | ❌      | ❌     | ❌     | ❌       |
+| `npm run client-build`       | Required: Build app                                | ✅      | ❌     | ❌     | ❌       |
+| `npm run client-start-watch` | Required: Run app on localhost                     | ❌      | ✅     | ❌     | ✅       |
+| `npm run tests-start-watch`  | Optional: Run unit tests                           | ❌      | ❌     | ✅     | ✅       |
 <BR>
 
 

@@ -1,7 +1,3 @@
-import { Example } from '@src/scripts/library/project/Example';
-import { SuperApp } from '@src/scripts/library/core/SuperApp';
-import { SuperEmitter } from './SuperEmitter';
-import { ExampleConstants } from '@src/scripts/ExampleConstants';
 
 /////////////////////////////
 // Example: Show a custom
@@ -11,6 +7,12 @@ import { ExampleConstants } from '@src/scripts/ExampleConstants';
 // could not get a pre-8.0 example to work
 // in 8.x. So I'm doing it custom.
 //
+
+import { SuperApp } from "@client/core/SuperApp";
+import { ExampleConstants } from "../ExampleConstants";
+import { SuperEmitter } from "./SuperEmitter";
+import { Example } from "../Example";
+
 /////////////////////////////
 export class ParticlesExample extends Example {
 

@@ -1,13 +1,14 @@
 import * as PIXI from 'pixi.js';
 import { Actions } from 'pixi-actions';
-import { SuperApp } from '@src/scripts/library/core/SuperApp';
-import { Example } from '@src/scripts/library/project/Example';
-import { CardsExample } from '@src/scripts/examples/CardExample/CardsExample';
-import { TextExample } from '@src/scripts/examples/TextExample/TextExample';
-import { ParticlesExample } from '@src/scripts/examples/particleExample/ParticlesExample';
-import { SpriteButton } from '@src/scripts/library/project/SpriteButton';
+import { InstructionsText } from './core/InstructionsText';
+import { SuperApp } from './core/SuperApp';
+import { CardsExample } from './examples/cardExample/CardsExample';
+import { ParticlesExample } from './examples/particleExample/ParticlesExample';
+import { TextExample } from './examples/textExample/TextExample';
+import { SpriteButton } from './examples/SpriteButton';
+import { Example } from './examples/Example';
 import Stats from 'stats.js';
-import { InstructionsText } from './library/core/InstructionsText';
+import './../../styles/styles.css';
 
 
 /////////////////////////////
