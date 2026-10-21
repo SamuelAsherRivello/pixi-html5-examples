@@ -33,6 +33,8 @@ It is based on Samuel Asher Rivello's [GitHub.com/SamuelAsherRivello/pixi-projec
 1. Click `Escape` key to quit
 1. Enjoy !
 
+Live Demo (pending deployment): [samuelasherrivello-com-ai.github.io/pixi-html5-examples](https://samuelasherrivello-com-ai.github.io/pixi-html5-examples/). Run the `Release Live Demo` workflow to publish it.
+
 
 ### Build The Examples
 
